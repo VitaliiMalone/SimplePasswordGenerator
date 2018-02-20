@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Simple Password Generator</string>
+    <string name="password_length">Password length:</string>
+    <string name="include_numbers">Include numbers</string>
+    <string name="include_uppercase">Include uppercase</string>
+    <string name="generate">Generate password</string>
+    <string name="saved_to_clipboard">Saved to clipboard</string>
+</resources>

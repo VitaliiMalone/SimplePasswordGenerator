@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Простой Генератор Паролей</string>
+    <string name="password_length">Длина пароля:</string>
+    <string name="include_numbers">Включить цифры</string>
+    <string name="include_uppercase">Включить прописные буквы</string>
+    <string name="generate">Сгенерировать пароль</string>
+    <string name="saved_to_clipboard">Сохранено в буфер</string>
+</resources>
