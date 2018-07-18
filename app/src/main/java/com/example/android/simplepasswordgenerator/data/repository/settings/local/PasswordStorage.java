@@ -9,12 +9,6 @@ public interface PasswordStorage {
 
     Single<Settings> getPassword();
 
-    Completable savePasswordLength(int passwordLength);
-
-    Completable saveNumbers(boolean numbers);
-
-    Completable saveUppercase(boolean uppercase);
-
-    Completable savePassword(String password);
+    Completable saveSettings(Settings settings);
 
 }

@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.example.android.simplepasswordgenerator.BR;
+import com.example.android.simplepasswordgenerator.data.model.Settings;
 
 public class PasswordViewModel extends BaseObservable {
 
@@ -12,6 +13,13 @@ public class PasswordViewModel extends BaseObservable {
     private boolean numbers;
     private boolean uppercase;
     private String password;
+
+    public PasswordViewModel(Settings settings) {
+        sbPasswordLength = (settings.getPasswordLength());
+        numbers = settings.isNumbers();
+        uppercase = settings.isUppercase();
+        password = settings.getPassword();
+    }
 
     @Bindable
     public int getSbPasswordLength() {

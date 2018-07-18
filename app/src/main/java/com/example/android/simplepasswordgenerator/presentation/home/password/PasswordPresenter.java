@@ -2,9 +2,9 @@ package com.example.android.simplepasswordgenerator.presentation.home.password;
 
 import android.util.Log;
 
-import com.example.android.simplepasswordgenerator.data.model.Settings;
 import com.example.android.simplepasswordgenerator.domain.password.PasswordInteractor;
 import com.example.android.simplepasswordgenerator.domain.settings.SettingsInteractor;
+import com.example.android.simplepasswordgenerator.domain.settings.SettingsMapper;
 import com.example.android.simplepasswordgenerator.presentation.home.password.viewmodel.PasswordViewModel;
 
 import javax.inject.Inject;
@@ -42,10 +42,19 @@ public class PasswordPresenter implements PasswordContract.Presenter {
     @Override
     public void onGeneratePasswordClick(PasswordViewModel model) {
         compositeDisposable.add(passwordInteractor.generatePassword(model)
-            .subscribe(
-                    password -> view.setPassword(password),
-                    throwable -> Log.e(TAG, "onGeneratePasswordClick: ", throwable))
+                .doAfterSuccess(s ->  saveSettings(model))
+                .subscribe(
+                        password -> view.setPassword(password),
+                        throwable -> Log.e(TAG, "onGeneratePasswordClick: ", throwable))
         );
+    }
+
+    @Override
+    public void saveSettings(PasswordViewModel model) {
+        compositeDisposable.add(settingsInteractor.saveSettings(SettingsMapper.map(model))
+                .subscribe(
+                        () -> Log.d(TAG, "saveSettings: success!"),
+                        Throwable::printStackTrace));
     }
 
     @Override
@@ -56,21 +65,12 @@ public class PasswordPresenter implements PasswordContract.Presenter {
 
     public void getPasswordViewModel() {
         compositeDisposable.add(settingsInteractor.getSettings()
-                .map(this::map)
+                .map(PasswordViewModel::new)
                 .subscribe(
                         viewModel -> view.setViewModel(viewModel),
                         throwable -> Log.e(TAG, "getPasswordViewModel: ", throwable))
         );
     }
 
-    private PasswordViewModel map(Settings settings) {
-        PasswordViewModel passwordViewModel = new PasswordViewModel();
 
-        passwordViewModel.setSbPasswordLength(settings.getPasswordLength());
-        passwordViewModel.setNumbers(settings.isNumbers());
-        passwordViewModel.setUppercase(settings.isUppercase());
-        passwordViewModel.setPassword(settings.getPassword());
-
-        return passwordViewModel;
-    }
 }

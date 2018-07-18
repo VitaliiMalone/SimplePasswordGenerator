@@ -21,5 +21,7 @@ public interface PasswordContract {
         void onGeneratePasswordClick(PasswordViewModel model);
 
         void onCopyClick(String password);
+
+        void saveSettings(PasswordViewModel model);
     }
 }

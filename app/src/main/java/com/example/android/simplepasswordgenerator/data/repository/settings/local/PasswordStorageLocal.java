@@ -29,26 +29,14 @@ public class PasswordStorageLocal implements PasswordStorage {
     }
 
     @Override
-    public Completable savePasswordLength(int passwordLength) {
-        sharedPreferencesStorage.savePasswordLength(passwordLength);
+    public Completable saveSettings(Settings settings) {
+        sharedPreferencesStorage.savePasswordLength(settings.getPasswordLength());
+        sharedPreferencesStorage.saveNumbers(settings.isNumbers());
+        sharedPreferencesStorage.saveUppercase(settings.isUppercase());
+        sharedPreferencesStorage.savePassword(settings.getPassword());
+
         return Completable.complete();
     }
 
-    @Override
-    public Completable saveNumbers(boolean numbers) {
-        sharedPreferencesStorage.saveNumbers(numbers);
-        return Completable.complete();
-    }
 
-    @Override
-    public Completable saveUppercase(boolean uppercase) {
-        sharedPreferencesStorage.saveUppercase(uppercase);
-        return Completable.complete();
-    }
-
-    @Override
-    public Completable savePassword(String password) {
-        sharedPreferencesStorage.savePassword(password);
-        return Completable.complete();
-    }
 }
